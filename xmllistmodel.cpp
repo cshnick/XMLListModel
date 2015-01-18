@@ -65,6 +65,9 @@ public:
         q->endRemoveRows();
     }
     QVariant dict(int index) const {
+        if (index < 0 || index > m_elements.count()) {
+            return QVariantMap();
+        }
         return m_elements.at(index);
     }
     int getId() const {

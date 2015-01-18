@@ -20,6 +20,11 @@ ApplicationWindow {
         property alias idLabel: label_id.text
 
         function updateProperties() {
+            var index = lview.currentIndex
+            if (index < 0) {
+                top_level.state = ""
+                return
+            }
             var dict = xml_model.dict(lview.currentIndex)
             top_level.nameText = dict["Name"]
             top_level.descriptionText = dict["Description"]
@@ -95,6 +100,9 @@ ApplicationWindow {
 
                     onClicked: {
                         xml_model.remove(lview.currentIndex)
+                        if (xml_model.count() >= lview.currentIndex) {
+                            lview.currentIndex = xml_model.count() - 1
+                        }
                         top_level.updateProperties()
                     }
                 }

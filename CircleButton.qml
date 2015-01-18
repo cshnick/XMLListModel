@@ -32,6 +32,7 @@ Circle {
             id: size_animation
             duration: top_level.animation_duration
             easing.type: "OutQuart"
+
         }
     }
     Behavior on height {
