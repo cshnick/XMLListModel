@@ -29,7 +29,7 @@ ApplicationWindow {
             top_level.nameText = dict["Name"]
             top_level.descriptionText = dict["Description"]
             top_level.conditionText = dict["Condition"]
-            top_level.idLabel = dict["Id"]
+            top_level.idLabel = dict["id"]
         }
         Rectangle {
             id: top_panel
@@ -67,8 +67,8 @@ ApplicationWindow {
                 }
                 CircleButton {
                     id: add_new
-                    width: top_level.state == "SHOW_RIGHT" ? 40 : 0
-                    height: top_level.state == "SHOW_RIGHT" ? 40 : 0
+                    width: 40
+                    height: 40
 
                     text: '+'
                     font.pointSize: 24
@@ -77,7 +77,7 @@ ApplicationWindow {
 
                     onClicked: {
                         var dict = {}
-                        dict["Id"] = xml_model.getId()
+                        dict["id"] = xml_model.getId()
                         dict["Name"] = "Имя"
                         dict["Description"] = "Описание достижения"
                         dict["Condition"] = "Условие достижения"
@@ -86,6 +86,7 @@ ApplicationWindow {
                         lview.currentIndex = xml_model.count() - 1
                         top_level.updateProperties()
                         console.log("dict" + dict["Name"])
+                        top_level.state = "SHOW_RIGHT"
                     }
                 }
                 CircleButton {
@@ -118,7 +119,7 @@ ApplicationWindow {
 
                     onClicked: {
                         var dict = {}
-                        dict["Id"] = parseInt(top_level.idLabel)
+                        dict["id"] = parseInt(top_level.idLabel)
                         dict["Name"] = text_name.text
                         dict["Description"] = text_description.text
                         dict["Condition"] = text_condition.text
@@ -164,7 +165,7 @@ ApplicationWindow {
                         Text {
                             anchors.centerIn: parent
                             color: "#303030"
-                            text: Id.toString()
+                            text: id.toString()
                         }
                     }
 
@@ -185,15 +186,16 @@ ApplicationWindow {
                             top_level.nameText = Name
                             top_level.descriptionText = Description
                             top_level.conditionText = Condition
-                            top_level.idLabel = Id
+                            top_level.idLabel = id
                         }
                     }
                 }
 
                 Component.onCompleted: {
-                    if (!xml_model.fromXml()) {
-                        xml_model.addTest()
-                    }
+//                    if (!xml_model.fromXml()) {
+//                        xml_model.addTest()
+//                    }
+                    xml_model.fromXml()
 
                     currentIndex = -1
                 }

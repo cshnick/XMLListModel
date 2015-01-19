@@ -2,11 +2,16 @@
 #include <QtCore>
 #include <QtXml>
 
-static const QStringList s_fields = QString("Id,Name,Description,Condition").split(',');
+#include "Conventions.h"
 
-static const QString filePath = ".";
-static const QString fileName = "achivements.xml";
-static const QString t_element = "achivement";
+static const QStringList s_fields(QString(f_id + "," +
+                                          f_name + "," +
+                                          f_description + "," +
+                                          f_condition
+                                          ).split(','));
+
+static const QString filePath = g_achivements_path;
+static const QString fileName = g_achivementsFileName;
 
 class XMLListModelPrivate {
     friend class XMLListModel;
@@ -84,7 +89,7 @@ public:
         writer.writeStartElement("root");
         for (int i = 0; i < m_elements.count(); i++) {
             QVariantMap element = m_elements.at(i);
-            writer.writeStartElement(t_element);
+            writer.writeStartElement(tag_element);
             for (auto j = element.begin(); j != element.end() ; j++) {
                 writer.writeTextElement(j.key(), j.value().toString());
             }
@@ -111,7 +116,7 @@ public:
             file.close();
             return false;
         }
-        QDomElement element = doc.firstChildElement().firstChildElement(t_element);
+        QDomElement element = doc.firstChildElement().firstChildElement(tag_element);
         while (!element.isNull()) {
             QVariantMap dta;
             QDomElement elAttr = element.firstChildElement();
@@ -119,7 +124,7 @@ public:
                 //type conversion
 
                 QVariant value;
-                if (elAttr.tagName() == "Id") {
+                if (elAttr.tagName() == f_id) {
                     int inttext = elAttr.text().toInt();
                     value = inttext;
                     m_lastId = qMax(inttext, m_lastId);
@@ -130,33 +135,33 @@ public:
                 elAttr = elAttr.nextSiblingElement();
             }
             append(dta);
-            element = element.nextSiblingElement(t_element);
+            element = element.nextSiblingElement(tag_element);
         }
         file.close();
         return true;
     }
     void addTest() {
         QVariantMap data1;
-        data1["Id"] = getId();
-        data1["Name"] = "Name1";
-        data1["Description"] = "Description 1";
-        data1["Condition"] = "Condition 1";
+        data1[f_id] = getId();
+        data1[f_name] = "Name1";
+        data1[f_description] = "Description 1";
+        data1[f_condition] = "Condition 1";
 
         append(data1);
 
         QVariantMap data2;
-        data2["Id"] = getId();
-        data2["Name"] = "Name2";
-        data2["Description"] = "Description 2";
-        data2["Condition"] = "Condition 2";
+        data2[f_id] = getId();
+        data2[f_name] = "Name2";
+        data2[f_description] = "Description 2";
+        data2[f_condition] = "Condition 2";
 
         append(data2);
 
         QVariantMap data3;
-        data3["Id"] = getId();
-        data3["Name"] = "Name3";
-        data3["Description"] = "Description 3";
-        data3["Condition"] = "Condition 3";
+        data3[f_id] = getId();
+        data3[f_name] = "Name3";
+        data3[f_description] = "Description 3";
+        data3[f_condition] = "Condition 3";
 
         append(data3);
     }
