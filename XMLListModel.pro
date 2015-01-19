@@ -10,7 +10,7 @@ CONFIG += c++11
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
-AE_SRC="/home/ilia/Development/achivement_engine/src"
+isEmpty(AE_SRC) : AE_SRC="/home/ilia/Development/achivement_engine/src"
 
 # Default rules for deployment.
 include(deployment.pri)

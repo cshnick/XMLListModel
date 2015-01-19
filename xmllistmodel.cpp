@@ -95,6 +95,7 @@ public:
             }
             writer.writeEndElement();
         }
+        writer.writeTextElement(tag_lastId, QString::number(m_lastId));
         writer.writeEndElement();
         writer.writeEndDocument();
         file.close();
@@ -136,6 +137,11 @@ public:
             }
             append(dta);
             element = element.nextSiblingElement(tag_element);
+        }
+        //Store last id to preserve unuque indecies
+        QDomElement lid = doc.firstChildElement().firstChildElement(tag_lastId);
+        if (!lid.isNull()) {
+            m_lastId = qMax(m_lastId, lid.text().toInt());
         }
         file.close();
         return true;
