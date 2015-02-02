@@ -227,6 +227,7 @@ ApplicationWindow {
                 color: "#E91E63"
 
                 text: "-1"
+                visible: false
             }
 
             Label {
