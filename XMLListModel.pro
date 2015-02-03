@@ -1,9 +1,11 @@
 TEMPLATE = app
 
 QT += qml quick widgets xml
+SRC_DIR = src
+INCLUDEPATH += $$SRC_DIR
 
-SOURCES += main.cpp \
-    xmllistmodel.cpp
+SOURCES += $$SRC_DIR/main.cpp \
+    $$SRC_DIR/xmllistmodel.cpp
 
 RESOURCES += qml.qrc
 CONFIG += c++11
@@ -16,6 +18,6 @@ isEmpty(AE_SRC) : AE_SRC="/home/ilia/Development/achivement_engine/src"
 include(deployment.pri)
 
 HEADERS += \
-    xmllistmodel.h
+    $$SRC_DIR/xmllistmodel.h
 
 INCLUDEPATH += $$AE_SRC

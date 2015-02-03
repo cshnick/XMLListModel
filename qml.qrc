@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
+        <file>qml/main.qml</file>
         <file>qml/Circle.qml</file>
-        <file>CircleButton.qml</file>
+        <file>qml/CircleButton.qml</file>
     </qresource>
 </RCC>
